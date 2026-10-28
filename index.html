@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>EV MarketScope | Electric Vehicle Market Insights</title>
+  <meta name="description" content="Explore electric vehicle market performance, specifications, pricing, adoption and customer insights through an interactive Tableau dashboard.">
+  <meta name="keywords" content="electric vehicles, EV market, Tableau dashboard, vehicle analytics, EV performance">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Arsha
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Updated: Feb 22 2025 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+  <style>
+    :root { --ev-green:#47b2e4; --ev-dark:#37517e; }
+    .logo .sitename { font-size: 27px; letter-spacing: -.7px; }
+    .logo .sitename span { color: var(--ev-green); }
+    .hero .hero-copy { padding-top: 20px; }
+    .hero .eyebrow { display:inline-block; color:#c5eaff; font-size:.82rem; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; margin-bottom:14px; }
+    .hero h1 { font-size:clamp(2.3rem,4.5vw,3.6rem); line-height:1.13; }
+    .hero p { max-width:650px; }
+    .hero .hero-img img { max-height:390px; object-fit:contain; }
+    .metric-card { height:100%; padding:24px 20px; background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,.07); text-align:center; }
+    .metric-card strong { display:block; color:var(--ev-dark); font-size:1.8rem; font-weight:800; }
+    .metric-card span { color:#6c757d; font-size:.92rem; }
+    .feature-card { height:100%; padding:28px 24px; border-radius:10px; background:#fff; box-shadow:0 4px 24px rgba(0,0,0,.07); transition:transform .25s; }
+    .feature-card:hover { transform:translateY(-5px); }
+    .feature-card .icon { font-size:2.1rem; color:var(--ev-green); margin-bottom:12px; }
+    .feature-card h3 { font-size:1.2rem; color:var(--ev-dark); font-weight:700; }
+    .dashboard-section { background:#f3f5fa; }
+    .dashboard-shell { background:#fff; border-radius:12px; padding:clamp(12px,2vw,24px); box-shadow:0 5px 28px rgba(55,81,126,.10); }
+    .dashboard-bar { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+    .dashboard-bar h3 { color:var(--ev-dark); font-size:1.25rem; margin:0; }
+    .dashboard-badge { color:#198754; background:#e8f7ee; padding:7px 12px; border-radius:30px; font-size:.75rem; font-weight:800; letter-spacing:.5px; }
+    .tableau-wrap { position:relative; width:100%; min-height:720px; overflow:hidden; border-radius:8px; background:#f8f9fa; }
+    .tableau-wrap iframe { display:block; width:100%; height:780px; border:0; }
+    #story .tableau-wrap { min-height:850px; }
+    #story .tableau-wrap iframe { height:900px; }
+    .step-number { color:var(--ev-green); font-weight:800; font-size:.9rem; letter-spacing:1px; }
+    .method-card { height:100%; padding:25px; border-radius:10px; background:#fff; box-shadow:0 4px 24px rgba(0,0,0,.06); }
+    .method-card h3 { margin-top:12px; font-size:1.15rem; color:var(--ev-dark); }
+    .ev-note { border-left:4px solid var(--ev-green); background:#eaf7fc; padding:16px 20px; border-radius:0 8px 8px 0; }
+    .footer .credits { padding-top:8px; }
+    @media(max-width:767px) { .tableau-wrap { min-height:620px; } .tableau-wrap iframe { height:680px; } #story .tableau-wrap { min-height:700px; } #story .tableau-wrap iframe { height:760px; } .hero .hero-img img { max-height:260px; } }
+  </style>
+</head>
+
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="#hero" class="logo d-flex align-items-center me-auto"><h1 class="sitename">EV<span>MarketScope</span></h1></a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#story">Data Story</a></li>
+          <li><a href="#insights">Explore</a></li>
+          <li><a href="#methodology">Methodology</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted" href="#dashboard">View Dashboard</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="hero" class="hero section dark-background">
+      <div class="container">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-7 order-2 order-lg-1 d-flex flex-column justify-content-center hero-copy" data-aos="zoom-out">
+            <span class="eyebrow"><i class="bi bi-lightning-charge-fill me-2"></i>Electric mobility analytics</span>
+            <h1>Electric Vehicle Market <span style="color:#47b2e4">Performance &amp; Insights</span></h1>
+            <p>Explore the EV landscape through interactive views of vehicle specifications, pricing, driving range, charging performance and market distribution. Turn complex vehicle data into clearer comparisons and useful decisions.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#dashboard" class="btn-get-started">Explore Dashboard <i class="bi bi-arrow-down-right ms-1"></i></a>
+              <a href="#overview" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-bar-chart-line me-2"></i><span>Project Overview</span></a>
+            </div>
+          </div>
+          <div class="col-lg-5 order-1 order-lg-2 hero-img text-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Electric mobility analytics illustration">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section light-background">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6"><div class="metric-card"><strong>100,000</strong><span>Vehicle records in dataset</span></div></div>
+          <div class="col-lg-3 col-md-6"><div class="metric-card"><strong>2018–2026</strong><span>Model-year coverage</span></div></div>
+          <div class="col-lg-3 col-md-6"><div class="metric-card"><strong>200</strong><span>Manufacturers represented</span></div></div>
+          <div class="col-lg-3 col-md-6"><div class="metric-card"><strong>37</strong><span>Dataset fields</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Explore the EV Market</h2>
+        <p>Explore the major dimensions of electric vehicle performance and ownership in one place.</p>
+      </div>
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100"><div class="feature-card"><div class="icon"><i class="bi bi-speedometer2"></i></div><h3>Vehicle Performance</h3><p>Compare driving range, motor power, torque, acceleration, top speed and drivetrain configuration.</p></div></div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200"><div class="feature-card"><div class="icon"><i class="bi bi-battery-charging"></i></div><h3>Battery &amp; Charging</h3><p>Explore battery capacity, chemistry, charging metrics, cycle life and degradation indicators.</p></div></div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300"><div class="feature-card"><div class="icon"><i class="bi bi-currency-dollar"></i></div><h3>Cost &amp; Ownership</h3><p>Review listed price, insurance costs, warranty details and estimated resale value.</p></div></div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400"><div class="feature-card"><div class="icon"><i class="bi bi-globe2"></i></div><h3>Market &amp; Impact</h3><p>Investigate manufacturer, market region, sales, customer ratings and estimated CO₂ savings.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="dashboard-section section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>EV Market Performance Dashboard</h2>
+        <p>Use the interactive Tableau dashboard below to explore vehicle segments and market indicators.</p>
+      </div>
+      <div class="container" data-aos="fade-up">
+        <div class="dashboard-shell">
+          <div class="dashboard-bar">
+            <div><h3>Electric Vehicle Market Performance &amp; Insights</h3><p class="mb-0 mt-1">Interactive Tableau Public visualization</p></div>
+            <span class="dashboard-badge"><i class="bi bi-circle-fill me-1"></i> LIVE EMBED</span>
+          </div>
+          <div class="tableau-wrap">
+            <iframe
+              title="Electric Vehicle Market Performance Tableau Dashboard"
+              src="https://public.tableau.com/views/ElectricVehicleMarketPerformanceInsightsDashboard_17930204313070_17930979775320/Dashboard12?:language=en-US&amp;:showVizHome=no&amp;:embed=true&amp;:toolbar=yes&amp;:display_count=n"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="d-flex justify-content-end mt-3">
+            <a class="btn-get-started" href="https://public.tableau.com/views/ElectricVehicleMarketPerformanceInsightsDashboard_17930204313070_17930979775320/Dashboard12?:language=en-US&amp;:showVizHome=no" target="_blank" rel="noopener noreferrer">Open Dashboard on Tableau <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="dashboard-section section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Explore the EV Market Story</h2>
+        <p>Follow a guided, story-led exploration of electric vehicle market performance and insights.</p>
+      </div>
+      <div class="container" data-aos="fade-up">
+        <div class="dashboard-shell">
+          <div class="dashboard-bar">
+            <div><h3>Electric Vehicle Market Performance &amp; Insights</h3><p class="mb-0 mt-1">Interactive Tableau Public story</p></div>
+            <span class="dashboard-badge"><i class="bi bi-journal-richtext me-1"></i> TABLEAU STORY</span>
+          </div>
+          <div class="tableau-wrap">
+            <iframe
+              title="Electric Vehicle Market Performance and Insights Story"
+              src="https://public.tableau.com/views/ElectricVehicleMarketPerformanceInsights_17930198561320/Story1?:language=en-US&amp;:showVizHome=no&amp;:embed=true&amp;:toolbar=yes&amp;:display_count=n"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="d-flex justify-content-end mt-3">
+            <a class="btn-get-started" href="https://public.tableau.com/views/ElectricVehicleMarketPerformanceInsights_17930198561320/Story1?:showVizHome=no" target="_blank" rel="noopener noreferrer">Open Story on Tableau <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>How to Use This Dashboard</h2>
+        <p>Move from broad market patterns to vehicle-level comparisons using the published Tableau views.</p>
+      </div>
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4" data-aos="fade-up"><div class="method-card"><span class="step-number">01 / EXPLORE</span><h3>Filter the vehicle landscape</h3><p>Start with manufacturer, model year, vehicle category, manufacturing country or market region.</p></div></div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100"><div class="method-card"><span class="step-number">02 / COMPARE</span><h3>Balance specifications and cost</h3><p>Compare driving range, battery capacity, charging metrics, price, insurance, warranty and resale estimates.</p></div></div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200"><div class="method-card"><span class="step-number">03 / INTERPRET</span><h3>Consider context and trade-offs</h3><p>Use sales, ratings, safety and estimated CO₂ savings as complementary indicators, not as a universal ranking.</p></div></div>
+        </div>
+        <div class="ev-note mt-4"><strong>Dataset note:</strong> Summary figures describe the dataset supplied for this project and are not independently verified real-world market statistics. Interpret results in the context of the data source and collection methodology.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-6 col-md-6 footer-about">
+          <a href="#hero" class="d-flex align-items-center"><span class="sitename">EVMarketScope</span></a>
+          <div class="footer-contact pt-3"><p>Electric Vehicle Market Performance &amp; Insights</p><p>Interactive analytics powered by Tableau Public.</p></div>
+        </div>
+        <div class="col-lg-6 col-md-6 footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="#overview">Project Overview</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#dashboard">Interactive Dashboard</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#story">EV Market Data Story</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#methodology">How to Use</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://public.tableau.com/" target="_blank" rel="noopener">Tableau Public</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">EVMarketScope</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">Website layout based on the Arsha template.</div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
